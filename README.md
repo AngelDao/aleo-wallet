@@ -1,0 +1,1 @@
+<h1 align="center">Aleo Wallet</h1>

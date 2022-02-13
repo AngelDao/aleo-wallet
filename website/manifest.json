@@ -1,0 +1,16 @@
+{
+  "name" : "Aleo Wallet",
+  "version" : "0.2",
+  "description" : "Shows the content settings for the current site.",
+  "permissions": [ "contentSettings", "tabs" ],
+  "content_security_policy": "script-src 'self' 'wasm-eval'; object-src 'self'",
+  "browser_action": {
+     "default_icon": "48.png",
+     "default_popup": "index.html"
+  },
+  "icons": { 
+     "48": "48.png",
+    "128": "128.png" 
+  },
+  "manifest_version": 2
+}
