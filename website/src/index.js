@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import '@aleohq/ui/dist/bundle.css';
+import './bundle.css';
 
 ReactDOM.render(
   <React.StrictMode>

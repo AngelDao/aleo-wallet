@@ -26,7 +26,7 @@ const DecryptRecord = () => {
     }
 
     return <>
-        <Card title="Decrypt Record with View Key" style={{width: "100%", borderRadius: "20px"}}
+        <Card title="Decrypt Record" style={{width: "100%", borderRadius: "20px"}}
               bordered={false}>
             <Form {...layout}>
                 <Form.Item label="View Key" colon={false}>

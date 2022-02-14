@@ -1,6 +1,7 @@
 **/*.idea/
 **/target
 **/node_modules
+**/dist
 **.DS_Store
 storage*/
 wasm/Cargo.lock

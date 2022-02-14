@@ -22,7 +22,7 @@ export const AccountFromPrivateKey = () => {
         const viewKey = () => account !== null ? account.to_view_key() : "";
         const address = () => account !== null ? account.to_address() : "";
 
-        return <Card title="Load Account from Private Key" style={{width: "100%", borderRadius: "20px"}}
+        return <Card title="Load Account" style={{width: "100%", borderRadius: "20px"}}
                      bordered={false}>
             <Form {...layout}>
                 <Form.Item label="Private Key" colon={false}>

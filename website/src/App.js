@@ -12,7 +12,7 @@ function App() {
     const [menuIndex, setMenuIndex] = useState(0);
 
     return (
-        <Layout className="layout" style={{minHeight: '100vh'}}>
+        <Layout className="layout" style={{minHeight: '100vh', minWidth:400}}>
             <Header className="header">
                 <div className="logo"/>
                 <Menu mode="horizontal" defaultSelectedKeys={['1']}>
