@@ -17,6 +17,7 @@
 use aleo_account::{Account as AccountNative, PrivateKey};
 
 use rand::{rngs::StdRng, SeedableRng};
+use regex::Regex;
 use std::str::FromStr;
 use wasm_bindgen::prelude::*;
 
@@ -36,6 +37,27 @@ impl Account {
         Self {
             account: AccountNative::new(rng),
         }
+    }
+
+    #[wasm_bindgen]
+    fn new_vanity(target: &str) -> Self {
+        let rng = &mut StdRng::from_entropy();
+        let rgx = Regex::new(format!("^aleo1{target}").as_str()).unwrap();
+        let mut search_status = false;
+        let trial = AccountNative::new(rng);
+
+        while !search_status {
+            let trial = AccountNative::new(rng);
+            println!("trial {:?}", trial.address().to_string());
+            let trial_addr = &trial.address().to_string();
+            let candidate = rgx.find(trial_addr);
+            // if target == (rgx.find(&trial.address().to_string()).unwrap().as_str()) {
+            let search_status = match candidate {
+                Some(str) => search_status = true,
+                None => (),
+            };
+        }
+        Self { account: trial }
     }
 
     #[wasm_bindgen]

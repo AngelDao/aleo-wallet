@@ -5,7 +5,13 @@ authors = ["The Aleo Team <hello@aleo.org>"]
 description = "Aleo"
 homepage = "https://aleo.org"
 repository = "https://github.com/AleoHQ/aleo"
-keywords = ["aleo", "cryptography", "blockchain", "decentralized", "zero-knowledge"]
+keywords = [
+    "aleo",
+    "cryptography",
+    "blockchain",
+    "decentralized",
+    "zero-knowledge",
+]
 categories = ["cryptography::cryptocurrencies", "operating-systems"]
 include = ["Cargo.toml", "src", "README.md", "LICENSE.md"]
 license = "GPL-3.0"
@@ -42,10 +48,13 @@ branch = "testnet2"
 
 [dependencies.wasm-bindgen]
 version = "0.2"
-features = [ "serde-serialize" ]
+features = ["serde-serialize"]
 
 [dev-dependencies.wasm-bindgen-test]
 version = "0.3.28"
 
 [dependencies.console_error_panic_hook]
 version = "0.1.7"
+
+[dependencies.regex]
+version = "1.5.4"

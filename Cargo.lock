@@ -1368,6 +1368,7 @@ dependencies = [
  "getrandom",
  "hex",
  "rand",
+ "regex",
  "serde_json",
  "snarkvm-utilities",
  "wasm-bindgen",
