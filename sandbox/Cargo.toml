@@ -1,0 +1,47 @@
+[package]
+name = "sandbox"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies.aleo-account]
+path = "../rust/account"
+
+[dependencies.aleo-record]
+path = "../rust/record"
+
+[dependencies.aleo-transaction]
+path = "../rust/transaction"
+
+[dependencies.rand]
+version = "0.8"
+default-features = false
+
+[dependencies.rand_chacha]
+version = "0.3.0"
+default-features = false
+
+[dependencies.getrandom]
+version = "0.2"
+features = ["js"]
+
+[dependencies.hex]
+version = "0.4.3"
+
+[dependencies.regex]
+version = "1.5.4"
+
+
+[dependencies.serde_json]
+version = "1.0"
+
+[dependencies.snarkvm-utilities]
+git = "https://github.com/AleoHQ/snarkVM.git"
+branch = "testnet2"
+
+[dependencies.wasm-bindgen]
+version = "0.2"
+features = [ "serde-serialize" ]
+
+[dev-dependencies.wasm-bindgen-test]
+version = "0.3.28"
