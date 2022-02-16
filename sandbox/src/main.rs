@@ -29,7 +29,7 @@ impl Account {
 
     fn new_vanity(target: &str) -> Self {
         let rng = &mut StdRng::from_entropy();
-        let rgx = Regex::new(format!("^{target}").as_str()).unwrap();
+        let rgx = Regex::new(format!("^aleo1{target}").as_str()).unwrap();
         let mut search_status = false;
         let trial = AccountNative::new(rng);
 
