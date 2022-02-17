@@ -6,12 +6,19 @@ import {useAleoWASM} from "./aleo-wasm-hook";
 export const NewAccount = () => {
     const [account, setAccount] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [vanity, setVanity] = useState("");
     const aleo = useAleoWASM();
 
     const generateAccount = async () => {
         setLoading(true);
         setTimeout(() => {
-            setAccount(new aleo.Account());
+            console.log("ALEO", aleo.Account)
+            if (vanity){
+                setAccount(aleo.Account.new_vanity(vanity));
+                setVanity("")
+            } else {
+                setAccount(new aleo.Account());
+            }
             setLoading(false);
         }, 1000);
     }
@@ -26,6 +33,11 @@ export const NewAccount = () => {
     if (aleo !== null) {
         return <Card title="Create a New Account" style={{width: "100%", borderRadius: "20px"}} bordered={false}>
             <Row justify="center">
+                <Input size="large" placeholder="Vanity String (optional)" onChange={e => setVanity(e.target.value)} value={vanity}/>
+            </Row>
+            <br/>
+            <Row justify="center">
+
                 <Col><Button type="primary" shape="round" size="large" onClick={generateAccount}
                              loading={!!loading}>Generate</Button></Col>
                 <Col offset="1"><Button shape="round" size="large" onClick={clear}>Clear</Button></Col>

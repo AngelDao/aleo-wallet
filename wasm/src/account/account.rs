@@ -40,7 +40,7 @@ impl Account {
     }
 
     #[wasm_bindgen]
-    fn new_vanity(target: &str) -> Self {
+    pub fn new_vanity(target: &str) -> Self {
         let rng = &mut StdRng::from_entropy();
         let rgx = Regex::new(format!("^aleo1{target}").as_str()).unwrap();
         let mut search_status = false;
