@@ -19,8 +19,8 @@ use aleo_account::{Account as AccountNative, PrivateKey};
 use rand::{rngs::StdRng, SeedableRng};
 use regex::Regex;
 use std::str::FromStr;
+use std::time::SystemTime;
 use wasm_bindgen::prelude::*;
-use std::time:: SystemTime;
 
 #[wasm_bindgen]
 pub struct Account {
@@ -47,28 +47,32 @@ impl Account {
     #[wasm_bindgen]
     pub fn new_vanity(target: &str) -> Self {
         let rng = &mut StdRng::from_entropy();
-        let rgx = Regex::new(format!("^aleo1{}", target).as_str()).unwrap();
+        let rgx = Regex::new(format!("^(aleo1{})", target).as_str()).unwrap();
         let mut search_status = false;
         let trial = AccountNative::new(rng);
         let mut iter_count = 0;
         let now = SystemTime::now();
 
-
         while !search_status {
             iter_count += 1;
             let trial = AccountNative::new(rng);
-            println!("trial {:?}", trial.address().to_string());
+            // println!("trial {:?}", trial.address().to_string());
+            // println!("aleo1wqzxnzthjqcax0knf83mv27s89gs33xj99c6rhqpuvyspvp765rq5pjnlv");
             let trial_addr = &trial.address().to_string();
-            let candidate = rgx.find(trial_addr);
+            // let trial_addr = "aleo1bqzxnzthjqcax0knf83mv27s89gs33xj99c6rhqpuvyspvp765rq5pjnlv";
+            let candidate = rgx.is_match(trial_addr);
             // if target == (rgx.find(&trial.address().to_string()).unwrap().as_str()) {
-            match candidate {
-                Some(_) => search_status = true,
-                None => (),
-            };
+            if candidate {
+                // println!("is canidate");
+                // println!("trial addr {}", trial_addr);
+                // println!("iteractions to create {}", iter);
+                // println!("time taken {:#?}", now.elapsed().unwrap().as_millis());
+                search_status = true;
+            }
         }
         Self {
             account: trial,
-            iter_count: iter_count,
+            iter_count,
             iter_time: now.elapsed().unwrap().as_millis() as u64,
         }
     }
