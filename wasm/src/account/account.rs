@@ -20,6 +20,7 @@ use rand::{rngs::StdRng, SeedableRng};
 use regex::Regex;
 use std::str::FromStr;
 use wasm_bindgen::prelude::*;
+use std::time:: SystemTime;
 
 #[wasm_bindgen]
 pub struct Account {
@@ -38,6 +39,8 @@ impl Account {
         let rng = &mut StdRng::from_entropy();
         Self {
             account: AccountNative::new(rng),
+            iter_time: 0,
+            iter_count: 0,
         }
     }
 
@@ -52,13 +55,13 @@ impl Account {
 
 
         while !search_status {
-            itercount += 1;
+            iter_count += 1;
             let trial = AccountNative::new(rng);
             println!("trial {:?}", trial.address().to_string());
             let trial_addr = &trial.address().to_string();
             let candidate = rgx.find(trial_addr);
             // if target == (rgx.find(&trial.address().to_string()).unwrap().as_str()) {
-            let search_status = match candidate {
+            match candidate {
                 Some(_) => search_status = true,
                 None => (),
             };
@@ -66,7 +69,7 @@ impl Account {
         Self {
             account: trial,
             iter_count: iter_count,
-            iter_time: now.elapsed().unwrap().as_millis(),
+            iter_time: now.elapsed().unwrap().as_millis() as u64,
         }
     }
 
@@ -76,6 +79,8 @@ impl Account {
 
         Self {
             account: AccountNative::from(private_key),
+            iter_time: 0,
+            iter_count: 0,
         }
     }
 
