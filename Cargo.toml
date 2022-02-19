@@ -5,19 +5,20 @@ authors = ["The Aleo Team <hello@aleo.org>"]
 description = "Aleo"
 homepage = "https://aleo.org"
 repository = "https://github.com/AleoHQ/aleo"
-keywords = ["aleo", "cryptography", "blockchain", "decentralized", "zero-knowledge"]
+keywords = [
+    "aleo",
+    "cryptography",
+    "blockchain",
+    "decentralized",
+    "zero-knowledge",
+]
 categories = ["cryptography::cryptocurrencies", "operating-systems"]
 include = ["Cargo.toml", "src", "README.md", "LICENSE.md"]
 license = "GPL-3.0"
 edition = "2018"
 
 [workspace]
-members = [
-    "rust/account",
-    "rust/record",
-    "rust/transaction",
-    "wasm"
-]
+members = ["rust/account", "rust/record", "rust/transaction", "wasm", "sandbox"]
 
 [lib]
 path = "cli/lib.rs"

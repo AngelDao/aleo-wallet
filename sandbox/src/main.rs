@@ -1,15 +1,14 @@
-
 use aleo_account::{Account as AccountNative, PrivateKey};
 
 use rand::{rngs::StdRng, SeedableRng};
-use std::str::FromStr;
-use wasm_bindgen::prelude::*;
 use regex::Regex;
-
+use std::str::FromStr;
+use std::time::{Duration, SystemTime};
+use wasm_bindgen::prelude::*;
 
 fn main() {
     println!("testing regex");
-    let test_target = "test";
+    let test_target = "pp";
     let van_acct = Account::new_vanity(test_target);
 }
 
@@ -20,7 +19,6 @@ pub struct Account {
 impl Account {
     #[allow(clippy::new_without_default)]
     pub fn new() -> Self {
-
         let rng = &mut StdRng::from_entropy();
         Self {
             account: AccountNative::new(rng),
@@ -29,28 +27,31 @@ impl Account {
 
     fn new_vanity(target: &str) -> Self {
         let rng = &mut StdRng::from_entropy();
-        let rgx = Regex::new(format!("^aleo1{target}").as_str()).unwrap();
+        let rgx = Regex::new(format!("^(aleo1{})", target).as_str()).unwrap();
         let mut search_status = false;
         let trial = AccountNative::new(rng);
+        let mut iter = 0;
+        let now = SystemTime::now();
 
-        while  !search_status {
+        while !search_status {
+            iter += 1;
             let trial = AccountNative::new(rng);
-            println!("trial {:?}", trial.address().to_string());
+            // println!("trial {:?}", trial.address().to_string());
+            // println!("aleo1wqzxnzthjqcax0knf83mv27s89gs33xj99c6rhqpuvyspvp765rq5pjnlv");
             let trial_addr = &trial.address().to_string();
-            let candidate = rgx.find(trial_addr);
+            // let trial_addr = "aleo1bqzxnzthjqcax0knf83mv27s89gs33xj99c6rhqpuvyspvp765rq5pjnlv";
+            let candidate = rgx.is_match(trial_addr);
             // if target == (rgx.find(&trial.address().to_string()).unwrap().as_str()) {
-            let search_status = match candidate {
-                Some(str) => {search_status = true},
-                None => (),
-            };
-
-
+            if candidate {
+                println!("is canidate");
+                println!("trial addr {}", trial_addr);
+                println!("iteractions to create {}", iter);
+                println!("time taken {:#?}", now.elapsed().unwrap().as_millis());
+                search_status = true;
+            }
+            // println!("is not canidate");
         }
-        Self {
-            account: trial,
-        }
-
-
+        Self { account: trial }
     }
 
     pub fn from_private_key(private_key: &str) -> Self {
