@@ -49,13 +49,13 @@ impl Account {
         let rng = &mut StdRng::from_entropy();
         let rgx = Regex::new(format!("^(aleo1{})", target).as_str()).unwrap();
         let mut search_status = false;
-        let trial = AccountNative::new(rng);
+        let mut trial = AccountNative::new(rng);
         let mut iter_count = 0;
         let now = SystemTime::now();
 
         while !search_status {
             iter_count += 1;
-            let trial = AccountNative::new(rng);
+            trial = AccountNative::new(rng);
             // println!("trial {:?}", trial.address().to_string());
             // println!("aleo1wqzxnzthjqcax0knf83mv27s89gs33xj99c6rhqpuvyspvp765rq5pjnlv");
             let trial_addr = &trial.address().to_string();
