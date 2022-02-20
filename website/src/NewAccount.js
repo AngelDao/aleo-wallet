@@ -14,8 +14,16 @@ export const NewAccount = () => {
         setTimeout(() => {
             console.log("ALEO", aleo.Account)
             if (vanity){
-                setAccount(aleo.Account.new_vanity(vanity));
-                setVanity("")
+              let search_status = false;
+              let trial_acct = new aleo.Account();
+              const rgx = new RegExp(`^aleo1${vanity}`);
+              while (!search_status) {
+                trial_acct = new aleo.Account();
+                if (rgx.test(trial_acct.to_address())) {
+                  search_status = true;
+                }
+              }
+              setAccount(trial_acct);
             } else {
                 setAccount(new aleo.Account());
             }
