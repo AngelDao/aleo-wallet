@@ -78,6 +78,11 @@ impl Account {
     }
 
     #[wasm_bindgen]
+    pub fn some_string() -> String {
+        "hello world".to_string()
+    }
+
+    #[wasm_bindgen]
     pub fn from_private_key(private_key: &str) -> Self {
         let private_key = PrivateKey::from_str(private_key).unwrap();
 

@@ -14,10 +14,15 @@ export const NewAccount = () => {
         setTimeout(() => {
             console.log("ALEO", aleo.Account)
             if (vanity){
-                setAccount(aleo.Account.new_vanity(vanity));
+                let test = aleo.Account.some_string();
+                console.log(test)
+                let temp = aleo.Account.new_vanity(vanity);
+                console.log(temp.to_address())
+                setAccount(temp);
                 setVanity("")
             } else {
                 setAccount(new aleo.Account());
+                console.log("set account")
             }
             setLoading(false);
         }, 1000);
